@@ -12,10 +12,20 @@ const connection = mysql.createConnection({
   database: "db_webshop",
 });
 
-router.get("/login", (req, res) => {
-  res.render("login", { name: "Romain" });
+// route pour renvoyer au login
+router.get("/", (req, res) => {
+  res.redirect("/login");
 });
 
+// route pour afficher le login
+router.get("/login", (req, res) => {
+  res.render("login");
+});
+
+// route pour afficher le register
+router.get("/register", (req, res) => {
+  res.render("register");
+});
 router.post("/register", (req, res) => {
   const { username, password } = req.body;
 
@@ -70,10 +80,6 @@ router.post("/login", (req, res) => {
       }
     });
   });
-});
-
-router.get("/", (req, res) => {
-  res.send("User: Romain");
 });
 
 module.exports = router;
