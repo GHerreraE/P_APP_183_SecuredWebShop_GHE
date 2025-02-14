@@ -3,6 +3,7 @@ const app = express();
 const path = require("path");
 const bodyParser = require("body-parser");
 const userRoutes = require("./routes/User");
+
 // appel createTable.js pour la connection et création de la table t_user (l'activer juste si la table n'est pas créé)
 // require("./db/createTable");
 

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const registerController = require("../controllers/registerController");
 const loginController = require("../controllers/loginController");
-/* const db = require(".db/connectionDb");*/
+const authMiddleware = require("../middlewares/authMiddleware");
 
 /*********************** ROUTES GET ***********************/
 
@@ -26,9 +26,9 @@ router.get("/postRegister", (req, res) => {
   res.render("postRegister");
 });
 
-// Route GET pour afficher la page de connexion réussie
-router.get("/postLogin", (req, res) => {
-  res.render("postLogin", { username: "Utilisateur" }); // Valeur par défaut si l'accès est direct
+// Route protégée : Affiche le dashboard uniquement si l'utilisateur est connecté
+router.get("/dashboard", authMiddleware, (req, res) => {
+  res.render("dashboard", { username: req.user.username });
 });
 /*********************** ROUTES POST ***********************/
 

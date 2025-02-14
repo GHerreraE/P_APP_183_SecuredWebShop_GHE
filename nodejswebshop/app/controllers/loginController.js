@@ -1,5 +1,6 @@
 const crypto = require("crypto");
 const db = require("../db/connectionDb");
+const authController = require("./authController");
 
 module.exports = {
   loginUser: (req, res) => {
@@ -41,8 +42,11 @@ module.exports = {
         return res.status(401).json({ message: "Mot de passe incorrect" });
       }
 
+      // generation d'un token JWT
+      const token = authController.generateToken(username);
+
       // authentification réussie
-      res.render("postLogin", { username });
+      res.render("dashboard", { username });
     });
   },
 };
