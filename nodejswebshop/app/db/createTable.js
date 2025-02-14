@@ -1,3 +1,7 @@
+////////////////////////////////////////////////////////////////////////////////////
+// JUSTE POUR LA CREATION DE LA TABLE DANS LA DB//
+///////////////////////////////////////////////////////////////////////////////////
+
 const mysql = require("mysql2");
 
 // Création de la connexion à MySQL
@@ -15,7 +19,7 @@ connection.connect((err) => {
     console.error("Erreur de connexion à MySQL:", err.stack);
     return;
   }
-  console.log("Connecté à la base de données MySQL !");
+  console.log("Connecté à la base de données MySQL");
 });
 
 // Création de la table t_users si elle n'existe pas
@@ -31,7 +35,7 @@ connection.query(createTableQuery, (err) => {
   if (err) {
     console.error("Erreur lors de la création de la table :", err);
   } else {
-    console.log("Table 't_users' prête !");
+    console.log("Table 't_users' prête");
   }
 });
 
