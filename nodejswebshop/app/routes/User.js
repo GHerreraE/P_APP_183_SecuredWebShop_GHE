@@ -33,6 +33,10 @@ router.get("/dashboard", authMiddleware, (req, res) => {
   res.render("dashboard", { username: req.user.username });
 });
 
+router.get("/users", authMiddleware, (req, res) => {
+  res.redirect("/users" + req.user.username);
+});
+
 router.get("/logout", (req, res) => {
   res.clearCookie("cookies");
   res.clearCookie("token");

@@ -1,15 +1,12 @@
 const jwt = require("jsonwebtoken");
-
-const SECRET_KEY = "ETML1234";
-
+require("dotenv").config();
+const SECRET_KEY = process.env.SECRET_KEY;
 module.exports = (req, res, next) => {
-  const authHeader = req.headers.authorization;
+  const token = req.cookies.token;
 
-  if (!authHeader || !authHeader.startsWith("Bearer ")) {
+  if (!token) {
     return res.status(401).json({ message: "Accès interdit. Token manquant." });
   }
-
-  const token = authHeader.split(" ")[1];
 
   try {
     const decoded = jwt.verify(token, SECRET_KEY);

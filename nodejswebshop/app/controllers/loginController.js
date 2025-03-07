@@ -1,7 +1,7 @@
 const crypto = require("crypto");
 const db = require("../db/connectionDb");
 const authController = require("./authController");
-require("dotenv").config();
+
 module.exports = {
   loginUser: (req, res) => {
     // Récupérer l'username et le password depuis le formulaire
@@ -43,10 +43,10 @@ module.exports = {
       const token = authController.generateToken({ username, role });
 
       // Définir le cookie avec le token (exemple : cookie httpOnly avec expiration 1h)
-      res.cookie("cookies", token, { httpOnly: true, maxAge: 3600000 });
+      res.cookie("token", token, { httpOnly: true, maxAge: 3600000 });
 
       // Authentification réussie : rediriger vers le dashboard et transmettre le token si nécessaire
-      res.render("dashboard", { username, role, token });
+      res.redirect("/dashboard");
     });
   },
 };
