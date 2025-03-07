@@ -1,52 +1,49 @@
 const crypto = require("crypto");
 const db = require("../db/connectionDb");
 const authController = require("./authController");
-
+require("dotenv").config();
 module.exports = {
   loginUser: (req, res) => {
-    // recupère l'username et le password pour les traiter
+    // Récupérer l'username et le password depuis le formulaire
     const { username, password } = req.body;
 
-    // validatio pour reenvoyer un formulaire remplis
+    // Vérifier que tous les champs sont renseignés
     if (!username || !password) {
       return res.status(400).json({ message: "Tous les champs sont requis" });
     }
 
-    // vérifier si l'utilisateur existe
-    const sql = "SELECT hash, sel FROM t_users WHERE username = ?";
-
-    // execute la requete en sql
+    // Requête pour récupérer le hash et le salt associés à l'utilisateur
+    const sql = "SELECT role, hash, sel FROM t_users WHERE username = ?";
     db.query(sql, [username], (err, results) => {
-      // condition dans le cas le serveur ait un erreur
       if (err) {
         console.error("Erreur lors de la recherche de l'utilisateur :", err);
         return res.status(500).json({ message: "Erreur serveur" });
       }
 
-      // validation si le nombre de resultats trouvés sont 0, alors on affiche rien et juste un message de "Utilisateur non trouvé"
+      // Si aucun utilisateur n'est trouvé, renvoyer une erreur
       if (results.length === 0) {
         return res.status(401).json({ message: "Utilisateur non trouvé" });
       }
 
-      // recupère l'hash et le sel du utilisateur
-      const { hash, sel } = results[0];
+      // Récupérer le hash et le sel stockés en base de données
+      const { role, hash, sel } = results[0];
 
-      // recalculer le hash avec le sel stocké
+      // Recalculer le hash avec le mot de passe fourni et le salt stocké
       const hashedPassword = crypto
         .createHash("sha256")
         .update(password + sel)
         .digest("hex");
 
-      // vérifier si le hash correspond db
+      // Comparer le hash recalculé avec celui en base de données
       if (hashedPassword !== hash) {
         return res.status(401).json({ message: "Mot de passe incorrect" });
       }
 
-      // generation d'un token JWT
-      const token = authController.generateToken(username);
+      // Générer un token JWT
+      const token = authController.generateToken({ username, role });
 
-      // authentification réussie
-      res.render("dashboard", { username });
+      // Authentification réussie : rediriger vers le dashboard et transmettre le token si nécessaire
+      res.render("dashboard", { username, role, token });
     });
   },
 };

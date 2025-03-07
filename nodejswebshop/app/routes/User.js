@@ -4,6 +4,8 @@ const registerController = require("../controllers/registerController");
 const loginController = require("../controllers/loginController");
 const authMiddleware = require("../middlewares/authMiddleware");
 
+// cookie-parser => packet npm
+
 /*********************** ROUTES GET ***********************/
 
 // route GET pour renvoyer au login

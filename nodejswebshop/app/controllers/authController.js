@@ -1,11 +1,13 @@
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
-const SECRET_KEY = "ETML1234";
+// Récupère la clé secrète depuis le fichier .env
+const SECRET_KEY = process.env.SECRET_KEY;
 
 module.exports = {
   // Générer un token JWT après connexion
-  generateToken: (username) => {
-    return jwt.sign({ username }, SECRET_KEY, { expiresIn: "1h" });
+  generateToken: (username, role) => {
+    return jwt.sign({ username, role }, SECRET_KEY, { expiresIn: "1h" });
   },
 
   // Vérifier un token JWT
