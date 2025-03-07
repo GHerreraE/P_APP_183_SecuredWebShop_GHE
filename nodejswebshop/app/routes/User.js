@@ -32,6 +32,12 @@ router.get("/postRegister", (req, res) => {
 router.get("/dashboard", authMiddleware, (req, res) => {
   res.render("dashboard", { username: req.user.username });
 });
+
+router.get("/logout", (req, res) => {
+  res.clearCookie("cookies");
+  res.clearCookie("token");
+  res.redirect("/login");
+});
 /*********************** ROUTES POST ***********************/
 
 // Route POST pour l'inscription

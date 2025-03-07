@@ -43,7 +43,7 @@ module.exports = {
       const token = authController.generateToken({ username, role });
 
       // Définir le cookie avec le token (exemple : cookie httpOnly avec expiration 1h)
-      res.cookie("token", token, { httpOnly: true, maxAge: 3600000 });
+      res.cookie("cookies", token, { httpOnly: true, maxAge: 3600000 });
 
       // Authentification réussie : rediriger vers le dashboard et transmettre le token si nécessaire
       res.render("dashboard", { username, role, token });
