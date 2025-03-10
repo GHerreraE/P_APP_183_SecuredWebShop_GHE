@@ -3,30 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard</title>
+    <title>Mon Profil</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/css/dashboard.css" />
+    <link rel="stylesheet" href="/css/profile.css" />
   </head>
   <body>
     <div class="background">
       <div class="shape"></div>
       <div class="shape"></div>
     </div>
-
-    <div class="dashboard-container">
-      <h2>Bienvenue sur le Dashboard</h2>
-      <p>Bonjour, <%= username.username %> ! Vous êtes connecté.</p>
+    <div class="profile-container">
+      <h2>Mon Profil</h2>
+      <p><strong>Nom d'utilisateur :</strong> <%= username.username %></p>
+      <p><strong>Role :</strong> <%= username.role %></p>
 
       <div class="actions">
-        <a href="/profile"
-          ><button class="profile-button">Mon Profil</button></a
-        >
-        <a href="/logout"
-          ><button class="logout-button">Se déconnecter</button></a
-        >
+        <a href="/dashboard"><button class="back-button">Retour</button></a>
       </div>
     </div>
   </body>

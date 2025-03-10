@@ -42,6 +42,15 @@ router.get("/logout", (req, res) => {
   res.clearCookie("token");
   res.redirect("/login");
 });
+
+// Route protégée : Affiche le profil de l'utilisateur connecté
+router.get("/profile", authMiddleware, (req, res) => {
+  res.render("profile", {
+    username: req.user.username,
+    role: req.user.role,
+  });
+});
+
 /*********************** ROUTES POST ***********************/
 
 // Route POST pour l'inscription
