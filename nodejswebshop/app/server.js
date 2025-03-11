@@ -6,7 +6,7 @@ const userRoutes = require("./routes/User");
 const cookieParser = require("cookie-parser");
 
 // appel createTable.js pour la connection et création de la table t_user (l'activer juste si la table n'est pas créé)
-// require("./db/createTable");
+require("./db/createTable");
 
 app.set("view engine", "ejs");
 app.use(cookieParser());
