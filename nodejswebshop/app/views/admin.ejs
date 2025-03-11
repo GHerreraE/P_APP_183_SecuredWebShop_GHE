@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/admin.css" />
+  </head>
+  <body>
+    <div class="background">
+      <div class="shape"></div>
+      <div class="shape"></div>
+    </div>
+
+    <div class="admin-container">
+      <h2>Panneau d'Administration</h2>
+      <p>Bonjour, <%= user.username %> !</p>
+
+      <div class="search-container">
+        <form action="/admin" method="POST">
+          <input
+            type="text"
+            name="search"
+            placeholder="Rechercher un utilisateur..."
+            required
+          />
+          <button type="submit">Rechercher</button>
+        </form>
+      </div>
+
+      <div class="user-list">
+        <h3>Liste des utilisateurs</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nom d'utilisateur</th>
+              <th>Rôle</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% users.forEach(user => { %>
+            <tr>
+              <td><%= user.id %></td>
+              <td><%= user.username %></td>
+              <td><%= user.role %></td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+
+      <a href="/dashboard">
+        <button class="back-button">Retour au Dashboard</button>
+      </a>
+      <a href="/logout">
+        <button class="logout-button">Se déconnecter</button>
+      </a>
+    </div>
+  </body>
+</html>
