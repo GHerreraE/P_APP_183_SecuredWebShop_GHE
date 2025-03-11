@@ -18,12 +18,15 @@
 
     <div class="dashboard-container">
       <h2>Bienvenue sur le Dashboard</h2>
-      <p>Bonjour, <%= username.username %> ! Vous êtes connecté.</p>
+      <p>Bonjour, <%= user.username %> ! Vous êtes connecté.</p>
 
       <div class="actions">
-        <a href="/profile"
-          ><button class="profile-button">Mon Profil</button></a
-        >
+        <a href="/users"><button class="profile-button">Mon Profil</button></a>
+        <% if (user.role === "admin") { %>
+        <a href="/admin">
+          <button class="admin-button">Admin Page</button>
+        </a>
+        <% } %>
         <a href="/logout"
           ><button class="logout-button">Se déconnecter</button></a
         >

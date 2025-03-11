@@ -105,3 +105,22 @@ body {
   background-color: whitesmoke;
   color: black;
 }
+
+.admin-button {
+  margin-top: 20px;
+  width: 100%;
+  background-color: black;
+  color: whitesmoke;
+  padding: 15px 0;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  border: none;
+}
+
+.admin-button:hover {
+  background-color: whitesmoke;
+  color: black;
+}
