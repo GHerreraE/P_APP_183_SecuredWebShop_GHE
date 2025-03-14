@@ -4,39 +4,35 @@ require("dotenv").config();
 
 module.exports = {
   registerUser: (req, res) => {
-    // recupère l'username et le password pour les traiter
+    // Récupère l'username et le password du formulaire
     const { username, password } = req.body;
 
-    // validatio pour reenvoyer un formulaire remplis
+    // Vérifie que les champs sont remplis
     if (!username || !password) {
       return res.status(400).json({ message: "Tous les champs sont requis" });
     }
 
-    // générer un sel aléatoire de 16 caractères
+    // Génère un sel aléatoire de 16 caractères (8 octets en hexadécimal)
     const salt = crypto.randomBytes(8).toString("hex");
 
-    // hacher le mot de passe avec SHA-256
+    // Hache le mot de passe en y ajoutant le sel, avec l'algorithme SHA-256
     const hash = crypto
-      // mode d'hachage
       .createHash("sha256")
-      // ajoute le mot de passe au hachage
       .update(password + salt)
-      // convertit le résultat en hexadécimal
       .digest("hex");
 
-    // Définir le rôle par défaut
+    // Rôle par défaut de l'utilisateur
     const role = "user";
 
-    // insérer dans la base de données
-    // (?, ?, ?) = éviter les injections SQL
+    // Prépare la requête SQL pour insérer l'utilisateur dans la base
     const sql =
       "INSERT INTO t_users (username, role, hash, sel) VALUES (?, ?, ?, ?)";
-    // query = execute une requete sql dans mysql avec "sql" qui a in insert into
     db.query(sql, [username, role, hash, salt], (err) => {
       if (err) {
         console.error("Erreur d'inscription :", err);
         return res.status(500).json({ message: "Erreur serveur" });
       }
+      // Redirige vers la page post-inscription
       res.redirect("/postRegister");
     });
   },
